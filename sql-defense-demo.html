@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SQL Security Demo | Abbe Zineh</title>
+  <style>
+    :root {
+      --bg: #071019;
+      --panel: rgba(255, 255, 255, 0.06);
+      --panel-strong: rgba(255, 255, 255, 0.09);
+      --line: rgba(255, 255, 255, 0.12);
+      --text: #eef7fb;
+      --muted: #9fbecc;
+      --accent: #54d2ff;
+      --accent-soft: rgba(84, 210, 255, 0.14);
+      --danger: #ff9c8a;
+      --safe: #8df2c7;
+      --radius: 24px;
+      --shadow: 0 24px 56px rgba(0, 0, 0, 0.3);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(84, 210, 255, 0.14), transparent 32%),
+        linear-gradient(180deg, #09131d, var(--bg));
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 44px;
+    }
+
+    .topbar,
+    .hero,
+    .card,
+    .result {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--panel-strong), var(--panel));
+      box-shadow: var(--shadow);
+    }
+
+    .topbar {
+      padding: 14px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(84, 210, 255, 0.3);
+      background: var(--accent-soft);
+      color: #dff8ff;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .hero {
+      padding: 28px;
+      margin-top: 18px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: rgba(238, 247, 251, 0.74);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Trebuchet MS", "Avenir Next Condensed", sans-serif;
+      line-height: 1.08;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      color: var(--accent);
+    }
+
+    .hero p,
+    .card p,
+    .result p {
+      color: rgba(238, 247, 251, 0.9);
+      line-height: 1.75;
+      margin: 14px 0 0;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 320px minmax(0, 1fr);
+      margin-top: 18px;
+    }
+
+    .card,
+    .result {
+      padding: 22px;
+    }
+
+    .scenario-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .scenario-btn {
+      width: 100%;
+      text-align: left;
+      padding: 14px 15px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .scenario-btn:hover,
+    .scenario-btn[aria-pressed="true"] {
+      transform: translateY(-1px);
+      border-color: rgba(84, 210, 255, 0.38);
+      background: rgba(84, 210, 255, 0.11);
+    }
+
+    .scenario-btn strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .panel-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+
+    .mini-panel {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .mini-panel h3 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .mini-panel pre {
+      margin: 14px 0 0;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #dff8ff;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(238, 247, 251, 0.92);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .result {
+      margin-top: 18px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .status.risk {
+      background: rgba(255, 156, 138, 0.12);
+      border: 1px solid rgba(255, 156, 138, 0.25);
+      color: #ffd8cf;
+    }
+
+    .status.safe {
+      background: rgba(141, 242, 199, 0.12);
+      border: 1px solid rgba(141, 242, 199, 0.25);
+      color: #ddfff0;
+    }
+
+    .warning {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(141, 242, 199, 0.2);
+      background: rgba(141, 242, 199, 0.07);
+      line-height: 1.7;
+      color: #e6fff4;
+    }
+
+    @media (max-width: 860px) {
+      .grid,
+      .panel-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Login-demo */
+    .login-demo {
+      margin-top: 28px;
+      padding: 22px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--panel-strong), var(--panel));
+    }
+
+    .login-demo h3 {
+      margin-bottom: 16px;
+    }
+
+    .login-demo label {
+      display: block;
+      margin-top: 12px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .login-demo input[type="text"],
+    .login-demo input[type="password"],
+    .login-demo select {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.22);
+      color: var(--text);
+      font-size: 16px;
+      margin-top: 6px;
+    }
+
+    .login-demo select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239fbecc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 20px;
+    }
+
+    .login-demo button {
+      margin-top: 20px;
+      padding: 12px 28px;
+      border-radius: 999px;
+      border: none;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 16px;
+      border: 1px solid rgba(84, 210, 255, 0.3);
+      cursor: pointer;
+      transition: 180ms ease;
+      margin-right: 12px;
+    }
+
+    .login-demo button:hover {
+      background: rgba(84, 210, 255, 0.2);
+      transform: scale(1.02);
+    }
+
+    .result-box {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line);
+      font-family: monospace;
+      white-space: pre-wrap;
+      color: #b4e6ff;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <nav class="topbar" aria-label="Page navigation">
+      <a class="pill" href="index.html">← Back to CV</a>
+      <div class="pill">
+        <span>🔒 Educational demo (client‑side only)</span>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <p class="eyebrow">SQL injection lab (client‑side simulation)</p>
+      <h1>Understand the difference between a vulnerable and a hardened solution.</h1>
+      <p>
+        This page simulates how a web application can respond to different types of input. <strong>Everything runs in your browser</strong> – no data is sent to any server, and the full source code is available on GitHub for transparency and security review.
+      </p>
+      <div class="tag-row">
+        <span class="tag">🧪 Client‑side only</span>
+        <span class="tag">🔍 Educational purpose</span>
+        <span class="tag">📂 Open source</span>
+        <span class="tag">🛡️ No real database</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <aside class="card">
+        <h2>Choose a scenario</h2>
+        <p>Test different input cases and compare what can happen in an insecure implementation versus a secure one.</p>
+        <div class="scenario-list" id="scenario-list">
+          <button class="scenario-btn" data-scenario="standard" aria-pressed="true">
+            <strong>Normal login</strong>
+            Standard input that should be handled correctly.
+          </button>
+          <button class="scenario-btn" data-scenario="unexpected" aria-pressed="false">
+            <strong>Unexpected characters</strong>
+            Input that requires robust validation and error handling.
+          </button>
+          <button class="scenario-btn" data-scenario="manipulated" aria-pressed="false">
+            <strong>Manipulated input</strong>
+            An attempt to influence query logic in a vulnerable application.
+          </button>
+        </div>
+      </aside>
+
+      <section class="card">
+        <h2 id="scenario-title">Normal login</h2>
+        <p id="scenario-description">
+          A normal user enters standard credentials. Both implementations should handle this case, but the secure
+          solution does it without building the query directly from raw input.
+        </p>
+
+        <div class="panel-grid">
+          <div class="mini-panel">
+            <h3>⚠️ Insecure pattern</h3>
+            <p id="insecure-summary">The application builds the SQL query directly from text coming from the form.</p>
+            <pre id="insecure-query">SELECT * FROM users
+WHERE username = [raw input]
+AND password = [raw input];</pre>
+          </div>
+          <div class="mini-panel">
+            <h3>✅ Secure pattern</h3>
+            <p id="secure-summary">The application sends input as separate parameters and does not interpret it as query logic.</p>
+            <pre id="secure-query">SELECT * FROM users
+WHERE username = ?
+AND password_hash = ?;</pre>
+          </div>
+        </div>
+
+        <div class="warning" id="defense-note">
+          Strong protection is built in layers: parameterized queries, input validation, hashed passwords, clear
+          error handling, and logging of abnormal patterns.
+        </div>
+      </section>
+    </section>
+
+    <section class="result">
+      <h2>Analysis result</h2>
+      <p id="risk-text">
+        In this scenario, the risk level is low if the implementation already uses parameterized queries. The biggest
+        difference is that an insecure implementation creates unnecessary future risk as the codebase grows.
+      </p>
+      <div class="status risk" id="risk-status">Insecure implementation: Risk of future errors</div>
+      <div class="status safe" id="safe-status">Secure implementation: Input is treated as data</div>
+      <p id="compare-text">
+        The comparison shows that the secure solution behaves predictably in all three cases, while the insecure one
+        can misinterpret input and create vulnerabilities when logic is built directly into the query string.
+      </p>
+    </section>
+
+    <!-- Interactive demo with dropdown + manual UNION -->
+    <section class="login-demo">
+      <h3>🔐 Interactive SQL injection demo (choose from list)</h3>
+      <p>
+        Select an injection from the dropdown and click <strong>“Run selected injection”</strong>. You can also type your own payload in the lower field. 
+        <strong>All processing happens locally in your browser</strong> – no network requests, no server, no tracking.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px;">
+        <div>
+          <label for="injectionSelect">📋 Pre‑defined injection payloads:</label>
+          <select id="injectionSelect">
+            <option value="1">1. OR 1=1 – bypass login</option>
+            <option value="2">2. admin' -- – log in as admin without password</option>
+            <option value="3">3. ORDER BY 1 – find number of columns (step 1)</option>
+            <option value="4">4. ORDER BY 2 – step 2</option>
+            <option value="5">5. ORDER BY 3 – step 3 (works, 3 columns)</option>
+            <option value="6">6. ORDER BY 4 – expected error</option>
+            <option value="7">7. UNION SELECT 1,2,3 – test 3 columns</option>
+            <option value="8">8. UNION SELECT username, password, role FROM users – extract all data</option>
+            <option value="9">9. ' UNION SELECT username, password, role FROM users – full version</option>
+            <option value="10">10. ' OR username = 'admin' – log in as specific admin</option>
+          </select>
+
+          <label for="usernameInput" style="margin-top: 16px;">👤 Username field (you can edit)</label>
+          <input type="text" id="usernameInput" placeholder="Username" value="' OR 1=1 --" />
+
+          <label for="passwordInput">🔑 Password (any value)</label>
+          <input type="password" id="passwordInput" placeholder="Password" value="" />
+        </div>
+
+        <div>
+          <label for="manualUnion">✍️ Custom UNION / ORDER BY payload:</label>
+          <input type="text" id="manualUnion" placeholder="e.g. ' UNION SELECT username, password, role FROM users --" value="' UNION SELECT username, password, role FROM users --" />
+          <p style="font-size: 13px; color: var(--muted); margin-top: 8px;">Edit this field and click “Run custom UNION” below.</p>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button id="runSelectedBtn">▶ Run selected injection</button>
+        <button id="runUnionBtn">▶ Run custom UNION</button>
+        <button id="resetBtn">↺ Reset to default</button>
+      </div>
+
+      <div id="output" class="result-box">
+        ⚡ Choose an option and click "Run selected injection".
+      </div>
+
+      <div style="margin-top: 16px; font-size: 14px; color: var(--muted); display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <span>🔒 All data stays in your browser – zero server interaction.</span>
+        <a href="https://github.com/Abbe-98/About-Me/blob/main/sql-injection-demo.html" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; color: var(--accent);">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+          </svg>
+          View full source on GitHub
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Simulated in‑memory database (client‑side only)
+    const users = [
+      { username: 'admin', password: 'hemligt123', role: 'admin' },
+      { username: 'domare', password: 'quack', role: 'judge' },
+      { username: 'personal', password: 'password123', role: 'staff' },
+      { username: 'administrator', password: 'VerySecret', role: 'admin' }
+    ];
+
+    const outputDiv = document.getElementById('output');
+    const usernameInput = document.getElementById('usernameInput');
+    const passwordInput = document.getElementById('passwordInput');
+    const injectionSelect = document.getElementById('injectionSelect');
+    const manualUnion = document.getElementById('manualUnion');
+
+    // Update fields based on dropdown selection
+    function updateFieldsFromSelect() {
+      const val = injectionSelect.value;
+      switch(val) {
+        case '1': // OR 1=1
+          usernameInput.value = "' OR 1=1 --";
+          passwordInput.value = "";
+          break;
+        case '2': // admin' --
+          usernameInput.value = "admin' --";
+          passwordInput.value = "";
+          break;
+        case '3': // ORDER BY 1
+          usernameInput.value = "' ORDER BY 1 --";
+          passwordInput.value = "";
+          break;
+        case '4': // ORDER BY 2
+          usernameInput.value = "' ORDER BY 2 --";
+          passwordInput.value = "";
+          break;
+        case '5': // ORDER BY 3
+          usernameInput.value = "' ORDER BY 3 --";
+          passwordInput.value = "";
+          break;
+        case '6': // ORDER BY 4
+          usernameInput.value = "' ORDER BY 4 --";
+          passwordInput.value = "";
+          break;
+        case '7': // UNION SELECT 1,2,3
+          usernameInput.value = "' UNION SELECT 1,2,3 --";
+          passwordInput.value = "";
+          break;
+        case '8': // UNION SELECT username, password, role
+          usernameInput.value = "admin' UNION SELECT username, password, role FROM users --";
+          passwordInput.value = "";
+          break;
+        case '9': // ' UNION SELECT username, password, role
+          usernameInput.value = "' UNION SELECT username, password, role FROM users --";
+          passwordInput.value = "";
+          break;
+        case '10': // OR username = 'admin'
+          usernameInput.value = "' OR username = 'admin' --";
+          passwordInput.value = "";
+          break;
+      }
+    }
+
+    // Run login simulation with current field values
+    function runLogin() {
+      const username = usernameInput.value;
+      const password = passwordInput.value;
+
+      const simulatedQuery = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
+
+      // Simple injection detection for demo purposes
+      if (username.includes("' OR 1=1") || username.includes("' OR 1=1")) {
+        outputDiv.innerHTML = `<span style="color: #ff9c8a;">⚠️ Vulnerable! Logged in as: ${users[0].username} (role: ${users[0].role}) using OR 1=1.</span><br><br><span style="color: #9fbecc;">Constructed query: ${simulatedQuery}</span>`;
+      }
+      else if (username.includes("admin' --")) {
+        outputDiv.innerHTML = `<span style="color: #ff9c8a;">⚠️ Vulnerable! Logged in as: admin (role: admin) using comment.</span><br><br><span style="color: #9fbecc;">Constructed query: ${simulatedQuery}</span>`;
+      }
+      else if (username.includes("' OR username = 'admin'")) {
+        outputDiv.innerHTML = `<span style="color: #ff9c8a;">⚠️ Vulnerable! Logged in as: admin (role: admin) with specific user.</span><br><br><span style="color: #9fbecc;">Constructed query: ${simulatedQuery}</span>`;
+      }
+      else if (username.includes("ORDER BY")) {
+        const match = username.match(/ORDER BY (\d+)/i);
+        if (match) {
+          const kolumner = parseInt(match[1], 10);
+          if (kolumner <= 3) {
+            outputDiv.innerHTML = `<span style="color: #54d2ff;">🔍 ORDER BY ${kolumner} works – table has at least ${kolumner} columns.</span><br><br><span style="color: #9fbecc;">Constructed query: ${simulatedQuery}</span>`;
+          } else {
+            outputDiv.innerHTML = `<span style="color: #ff9c8a;">❌ ORDER BY ${kolumner} generates an error – table has fewer than ${kolumner} columns (3 columns).</span><br><br><span style="color: #9fbecc;">Constructed query: ${simulatedQuery}</span>`;
+          }
+        } else {
+          outputDiv.innerHTML = `<span style="color: #ff9c8a;">❓ Could not parse ORDER BY.</span>`;
+        }
+      }
+      else if (username.includes("UNION SELECT")) {
+        const userList = users.map(u => `${u.username} : ${u.password} (${u.role})`).join('<br>');
+        outputDiv.innerHTML = `<span style="color: #8df2c7;">🔓 UNION SELECT succeeded!<br><br>Extracted data from users:<br>${userList}</span><br><br><span style="color: #9fbecc;">Constructed query: ${simulatedQuery}</span>`;
+      }
+      else {
+        const found = users.find(u => u.username === username && u.password === password);
+        if (found) {
+          outputDiv.innerHTML = `<span style="color: #8df2c7;">✅ Logged in as: ${found.username} (role: ${found.role})</span><br><br><span style="color: #9fbecc;">Constructed query: ${simulatedQuery}</span>`;
+        } else {
+          outputDiv.innerHTML = `<span style="color: #ff9c8a;">❌ Invalid credentials</span><br><br><span style="color: #9fbecc;">Constructed query: ${simulatedQuery}</span>`;
+        }
+      }
+    }
+
+    // Run UNION from manual field
+    function runUnion() {
+      const unionValue = manualUnion.value;
+      usernameInput.value = unionValue;
+      passwordInput.value = "";
+      runLogin();
+    }
+
+    // Reset to default
+    function resetDemo() {
+      usernameInput.value = "' OR 1=1 --";
+      passwordInput.value = "";
+      injectionSelect.value = "1";
+      outputDiv.innerHTML = "⚡ Choose an option and click \"Run selected injection\".";
+    }
+
+    // Event listeners
+    injectionSelect.addEventListener('change', updateFieldsFromSelect);
+
+    document.getElementById('runSelectedBtn').addEventListener('click', runLogin);
+    document.getElementById('runUnionBtn').addEventListener('click', runUnion);
+    document.getElementById('resetBtn').addEventListener('click', resetDemo);
+
+    // Initial update
+    updateFieldsFromSelect();
+
+    // Scenario switching (unchanged)
+    const scenarios = {
+      standard: {
+        title: "Normal login",
+        description: "A normal user enters standard credentials. Both implementations should handle this case, but the secure solution does it without building the query directly from raw input.",
+        insecureSummary: "Direct query building can work in simple cases, but the method is still unnecessarily fragile and difficult to protect over time.",
+        secureSummary: "Parameters are sent separately, and the database can clearly distinguish between data and query structure.",
+        riskText: "In this scenario, the risk level is low if the implementation already uses parameterized queries. The biggest difference is that an insecure implementation creates unnecessary future risk as the codebase grows.",
+        riskStatus: "Insecure implementation: Works short term but stays fragile",
+        safeStatus: "Secure implementation: Stable and clear data handling",
+        compareText: "Both solutions can produce the same user experience here, but only the hardened version scales without accidentally opening the door to injection issues.",
+        defenseNote: "Strong protection is built in layers: parameterized queries, input validation, hashed passwords, clear error handling, and logging of abnormal patterns."
+      },
+      unexpected: {
+        title: "Unexpected characters",
+        description: "Forms often receive characters that can create bugs in an insecure implementation. This is not only about attacks, but also about robust error handling and proper escaping.",
+        insecureSummary: "When the query string is assembled manually, special characters can break queries or create unclear errors that put pressure on support and operations.",
+        secureSummary: "A parameterized query still treats input as data and makes the application more predictable when a user enters unexpected text.",
+        riskText: "This shows that secure patterns do not only protect against attacks. They also reduce the risk of operational issues and debugging caused by accidental input.",
+        riskStatus: "Insecure implementation: Higher risk of broken queries",
+        safeStatus: "Secure implementation: Robust against unexpected text",
+        compareText: "The difference becomes clear when the application receives input that does not match the ideal case. Hardened code continues to behave predictably without affecting query logic.",
+        defenseNote: "Mature protection also includes input normalization, clear error messages without exposing internal details, and tests for edge cases."
+      },
+      manipulated: {
+        title: "Manipulated input",
+        description: "This scenario represents an attempt to submit text intended to influence query conditions in a vulnerable application. The page only shows the principle, not a real attack string.",
+        insecureSummary: "When logic is built directly from raw input, the database can misinterpret the text as part of the query instead of plain data.",
+        secureSummary: "Parameterized queries block logic changes because the database treats the entire input as a value rather than as SQL code.",
+        riskText: "This is where the difference becomes clearest. A vulnerable implementation can misinterpret manipulated input and bypass intended checks, while a secure implementation treats the same input as ordinary text.",
+        riskStatus: "Insecure implementation: Vulnerable to logic manipulation",
+        safeStatus: "Secure implementation: Manipulated input is neutralized",
+        compareText: "The defensive pattern allows the same form to resist attempts to change conditions in the database call. That is the foundation for reducing SQL injection risks.",
+        defenseNote: "Combine parameterized queries with least privilege in the database, review of abnormal patterns, and separate accounts for the application's database access."
+      }
+    };
+
+    const buttons = Array.from(document.querySelectorAll(".scenario-btn"));
+    const title = document.getElementById("scenario-title");
+    const description = document.getElementById("scenario-description");
+    const insecureSummary = document.getElementById("insecure-summary");
+    const secureSummary = document.getElementById("secure-summary");
+    const riskText = document.getElementById("risk-text");
+    const riskStatus = document.getElementById("risk-status");
+    const safeStatus = document.getElementById("safe-status");
+    const compareText = document.getElementById("compare-text");
+    const defenseNote = document.getElementById("defense-note");
+
+    function renderScenario(key) {
+      const scenario = scenarios[key];
+      title.textContent = scenario.title;
+      description.textContent = scenario.description;
+      insecureSummary.textContent = scenario.insecureSummary;
+      secureSummary.textContent = scenario.secureSummary;
+      riskText.textContent = scenario.riskText;
+      riskStatus.textContent = scenario.riskStatus;
+      safeStatus.textContent = scenario.safeStatus;
+      compareText.textContent = scenario.compareText;
+      defenseNote.textContent = scenario.defenseNote;
+
+      buttons.forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.scenario === key));
+      });
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => renderScenario(button.dataset.scenario));
+    });
+  </script>
+</body>
+</html>

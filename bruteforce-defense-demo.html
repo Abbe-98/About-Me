@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Brute Force Defense | Abbe Zineh</title>
+  <style>
+    :root {
+      --bg: #081019;
+      --panel: rgba(255, 255, 255, 0.06);
+      --panel-strong: rgba(255, 255, 255, 0.09);
+      --line: rgba(255, 255, 255, 0.12);
+      --text: #eef7fb;
+      --muted: #9ebdcd;
+      --accent: #54d2ff;
+      --accent-soft: rgba(84, 210, 255, 0.14);
+      --warn: #ffd08d;
+      --alert: #ff988f;
+      --good: #8df2c7;
+      --radius: 24px;
+      --shadow: 0 24px 56px rgba(0, 0, 0, 0.3);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(84, 210, 255, 0.14), transparent 32%),
+        linear-gradient(180deg, #09131d, var(--bg));
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 44px;
+    }
+
+    .topbar,
+    .hero,
+    .card,
+    .timeline {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--panel-strong), var(--panel));
+      box-shadow: var(--shadow);
+    }
+
+    .topbar {
+      padding: 14px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(84, 210, 255, 0.3);
+      background: var(--accent-soft);
+      color: #dff8ff;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .hero {
+      padding: 28px;
+      margin-top: 18px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: rgba(238, 247, 251, 0.74);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Trebuchet MS", "Avenir Next Condensed", sans-serif;
+      line-height: 1.08;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      color: var(--accent);
+    }
+
+    .hero p,
+    .card p,
+    .timeline p {
+      color: rgba(238, 247, 251, 0.9);
+      line-height: 1.75;
+      margin: 14px 0 0;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 360px minmax(0, 1fr);
+      margin-top: 18px;
+    }
+
+    .card,
+    .timeline {
+      padding: 22px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    button {
+      border: 1px solid rgba(124, 224, 255, 0.22);
+      background: linear-gradient(180deg, rgba(124, 224, 255, 0.16), rgba(84, 210, 255, 0.08));
+      color: var(--text);
+      font: inherit;
+      font-weight: 600;
+      padding: 11px 15px;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow:
+        0 10px 22px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(124, 224, 255, 0.46);
+      box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.22),
+        0 0 0 1px rgba(124, 224, 255, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    #attempt-button {
+      background: linear-gradient(180deg, #73e7ff 0%, #3bbde5 100%);
+      border-color: rgba(124, 224, 255, 0.72);
+      color: #06131d;
+      box-shadow:
+        0 14px 30px rgba(84, 210, 255, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.42);
+    }
+
+    #attempt-button:hover {
+      background: linear-gradient(180deg, #85ecff 0%, #4dc7ec 100%);
+      border-color: rgba(141, 242, 255, 0.88);
+      box-shadow:
+        0 18px 34px rgba(84, 210, 255, 0.34),
+        0 0 0 1px rgba(124, 224, 255, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    #reset-button {
+      background: linear-gradient(180deg, rgba(255, 208, 141, 0.22), rgba(255, 208, 141, 0.1));
+      border-color: rgba(255, 208, 141, 0.34);
+      color: #fff1cf;
+      box-shadow:
+        0 12px 24px rgba(255, 208, 141, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    }
+
+    #reset-button:hover {
+      background: linear-gradient(180deg, rgba(255, 208, 141, 0.3), rgba(255, 208, 141, 0.14));
+      border-color: rgba(255, 208, 141, 0.52);
+      box-shadow:
+        0 16px 28px rgba(255, 208, 141, 0.12),
+        0 0 0 1px rgba(255, 208, 141, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    }
+
+    .status-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .status-box {
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .status-label {
+      display: block;
+      color: rgba(238, 247, 251, 0.68);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 6px;
+    }
+
+    .status-box strong {
+      font-size: 1.15rem;
+    }
+
+    .protection-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .protection {
+      padding: 8px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      color: rgba(238, 247, 251, 0.92);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .timeline {
+      min-height: 100%;
+    }
+
+    .log {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .log li {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      line-height: 1.65;
+    }
+
+    .log strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .legend {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(141, 242, 199, 0.07);
+      border: 1px solid rgba(141, 242, 199, 0.2);
+      line-height: 1.7;
+      color: #e6fff4;
+    }
+
+    .source-meta {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-meta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent);
+    }
+
+    .tone-warn {
+      color: #fff0cf;
+    }
+
+    .tone-alert {
+      color: #ffd9d2;
+    }
+
+    .tone-good {
+      color: #ddfff0;
+    }
+
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <nav class="topbar" aria-label="Page navigation">
+      <a class="pill" href="index.html">Back to CV</a>
+      <div class="pill">Defensive visualization of brute-force protection</div>
+    </nav>
+
+    <section class="hero">
+      <p class="eyebrow">Brute force and Hydra in context</p>
+      <h1>See how a login system should react to automated attempts.</h1>
+      <p>
+        This demo focuses on defense. Hydra is mentioned here as an example of a tool that can automate many login
+        attempts in a test environment. The goal is to show how risk should be detected early and how rate limiting,
+        account lockout, MFA challenges, and logging can be activated step by step.
+      </p>
+      <div class="protection-list">
+        <span class="protection">Risk scoring</span>
+        <span class="protection">Rate limiting</span>
+        <span class="protection">MFA challenge</span>
+        <span class="protection">Account lockout</span>
+        <span class="protection">Secure logging</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <aside class="card">
+        <h2>Simulate attempts</h2>
+        <p>
+          Click the button to simulate new login attempts. The more attempts happen in a short period of time, the
+          more protection layers the system should activate.
+        </p>
+        <div class="actions">
+          <button id="attempt-button" type="button">Record new attempt</button>
+          <button id="reset-button" type="button">Reset demo</button>
+        </div>
+
+        <div class="status-grid">
+          <div class="status-box">
+            <span class="status-label">Attempts</span>
+            <strong id="attempt-count">0</strong>
+          </div>
+          <div class="status-box">
+            <span class="status-label">Risk level</span>
+            <strong id="risk-level" class="tone-good">Normal activity</strong>
+          </div>
+          <div class="status-box">
+            <span class="status-label">System response</span>
+            <strong id="response-text">Passive monitoring</strong>
+          </div>
+        </div>
+
+        <div class="legend" id="legend-text">
+          At low levels, standard logging is enough. When patterns become abnormal, additional protections should be activated automatically.
+        </div>
+      </aside>
+
+      <section class="timeline">
+        <h2>Event flow</h2>
+        <p>
+          The log below shows how a mature system can respond. It is an educational model that illustrates defensive
+          thinking, not a real attack or an offensive workflow.
+        </p>
+        <ul class="log" id="log-list">
+          <li>
+            <strong>Starting state</strong>
+            The system monitors logins and looks for unusual patterns without affecting normal users.
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <div class="source-meta">
+      <span>🔒 All data stays in your browser - zero server interaction.</span>
+      <a class="source-meta-link" href="https://github.com/Abbe-98/About-Me/blob/main/bruteforce-defense-demo.html" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+        </svg>
+        View full source on GitHub
+      </a>
+    </div>
+  </main>
+
+  <script>
+    const attemptButton = document.getElementById("attempt-button");
+    const resetButton = document.getElementById("reset-button");
+    const attemptCount = document.getElementById("attempt-count");
+    const riskLevel = document.getElementById("risk-level");
+    const responseText = document.getElementById("response-text");
+    const legendText = document.getElementById("legend-text");
+    const logList = document.getElementById("log-list");
+
+    let attempts = 0;
+
+    function getState(count) {
+      if (count >= 8) {
+        return {
+          riskClass: "tone-alert",
+          risk: "Critical activity",
+          response: "The account is temporarily locked and a SOC alert is created",
+          legend:
+            "This step shows how the system should stop the continuing pattern, require manual review, and preserve clear logs for follow-up.",
+          logTitle: "Account lockout and escalation",
+          logBody:
+            "Many attempts in a short period indicate automation. The system temporarily blocks further login activity, marks the session as high risk, and sends an alert to the responsible team."
+        };
+      }
+
+      if (count >= 6) {
+        return {
+          riskClass: "tone-warn",
+          risk: "High activity",
+          response: "Rate limiting is tightened and an MFA challenge is activated",
+          legend:
+            "A robust system slows the pace, adds extra verification, and reduces the chance that automated attempts can continue without friction.",
+          logTitle: "Protection on the login flow",
+          logBody:
+            "The pace now looks abnormal. The system responds with stricter limits, progressive delays, and extra verification before more attempts are allowed."
+        };
+      }
+
+      if (count >= 4) {
+        return {
+          riskClass: "tone-warn",
+          risk: "Elevated activity",
+          response: "Extra monitoring and risk scoring are activated",
+          legend:
+            "When the same account or the same origin generates repeated failures, the system should increase monitoring and prepare additional protections.",
+          logTitle: "Abnormal pattern detected",
+          logBody:
+            "Multiple failures are recorded in a short period. Logging and risk assessment are increased to determine whether the behavior is legitimate or automated."
+        };
+      }
+
+      return {
+        riskClass: "tone-good",
+        risk: "Normal activity",
+        response: "Passive monitoring",
+        legend:
+          "At low levels, standard logging is enough. When patterns become abnormal, additional protections should be activated automatically.",
+        logTitle: "Standard monitoring",
+        logBody:
+          "The system records login attempts, stores metadata, and makes sure a normal user is not affected by unnecessary friction."
+      };
+    }
+
+    function appendLog(title, body) {
+      const item = document.createElement("li");
+      const strong = document.createElement("strong");
+      strong.textContent = title;
+      item.appendChild(strong);
+      item.appendChild(document.createTextNode(body));
+      logList.prepend(item);
+    }
+
+    function updateView() {
+      const state = getState(attempts);
+      attemptCount.textContent = String(attempts);
+      riskLevel.textContent = state.risk;
+      riskLevel.className = state.riskClass;
+      responseText.textContent = state.response;
+      legendText.textContent = state.legend;
+      appendLog(state.logTitle, state.logBody);
+    }
+
+    attemptButton.addEventListener("click", () => {
+      attempts += 1;
+      updateView();
+    });
+
+    resetButton.addEventListener("click", () => {
+      attempts = 0;
+      attemptCount.textContent = "0";
+      riskLevel.textContent = "Normal activity";
+      riskLevel.className = "tone-good";
+      responseText.textContent = "Passive monitoring";
+      legendText.textContent =
+        "At low levels, standard logging is enough. When patterns become abnormal, additional protections should be activated automatically.";
+      logList.innerHTML =
+        "<li><strong>Starting state</strong>The system monitors logins and looks for unusual patterns without affecting normal users.</li>";
+    });
+  </script>
+</body>
+</html>

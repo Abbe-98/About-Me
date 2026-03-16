@@ -1,0 +1,1900 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Abbe Zineh | CV and Portfolio</title>
+  <style>
+    :root {
+      --sidebar: #0b1325;
+      --sidebar-deep: #111c34;
+      --content: #0a1020;
+      --content-soft: #131d35;
+      --panel: rgba(16, 25, 46, 0.94);
+      --panel-strong: rgba(20, 33, 60, 0.96);
+      --text: #eef3ff;
+      --muted: #99a7c8;
+      --line: rgba(148, 168, 255, 0.14);
+      --accent: #85d6ff;
+      --accent-soft: rgba(133, 214, 255, 0.13);
+      --accent-warm: #f4c46c;
+      --accent-violet: #b394ff;
+      --accent-teal: #3fe0ba;
+      --success: #8ee4c2;
+      --shadow: 0 26px 60px rgba(0, 0, 0, 0.34);
+      --radius: 24px;
+      --anchor-offset: 65px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { min-height: 100%; }
+
+    html {
+      scroll-padding-top: var(--anchor-offset);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(980px 720px at 10% 100%, rgba(179, 148, 255, 0.18), transparent 34%),
+        radial-gradient(900px 620px at 78% 4%, rgba(54, 193, 255, 0.15), transparent 36%),
+        linear-gradient(120deg, #090d18 0%, #0b1121 36%, #0b1428 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 10px;
+      background: linear-gradient(90deg, rgba(244, 196, 108, 0.22), rgba(133, 214, 255, 0.14), rgba(244, 196, 108, 0.22));
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .layout {
+      width: min(1480px, calc(100% - 24px));
+      margin: 0 auto;
+      padding: 18px 0 42px;
+      display: grid;
+      grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .sidebar,
+    .content {
+      min-width: 0;
+    }
+
+    .sidebar {
+      padding: 16px;
+      align-self: start;
+      position: sticky;
+      top: 18px;
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(11, 19, 37, 0.96), rgba(10, 16, 29, 0.94));
+      box-shadow: var(--shadow);
+    }
+
+    .content {
+      padding-top: 10px;
+    }
+
+    .portrait-card,
+    .panel,
+    .hero,
+    .timeline,
+    .cyber-card,
+    .project-card,
+    .skill-card {
+      --section-dot: var(--accent-warm);
+      --section-border: rgba(133, 214, 255, 0.14);
+      --section-pill-bg: rgba(133, 214, 255, 0.1);
+      --section-pill-text: #dfefff;
+      --section-head-bg: rgba(133, 214, 255, 0.08);
+      --section-head-line: rgba(133, 214, 255, 0.52);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portrait-card,
+    .panel {
+      background: linear-gradient(180deg, rgba(17, 25, 45, 0.98), rgba(11, 18, 32, 0.95));
+    }
+
+    .hero,
+    .timeline,
+    .cyber-card,
+    .project-card,
+    .skill-card {
+      background: linear-gradient(180deg, rgba(17, 27, 48, 0.97), rgba(10, 18, 33, 0.95));
+    }
+
+    .portrait-card {
+      padding: 18px;
+    }
+
+    .theme-amber {
+      --section-dot: var(--accent-warm);
+      --section-border: rgba(244, 196, 108, 0.22);
+      --section-pill-bg: rgba(244, 196, 108, 0.14);
+      --section-pill-text: #f7dca0;
+      --section-head-bg: rgba(244, 196, 108, 0.09);
+      --section-head-line: rgba(244, 196, 108, 0.5);
+    }
+
+    .theme-violet {
+      --section-dot: var(--accent-violet);
+      --section-border: rgba(179, 148, 255, 0.22);
+      --section-pill-bg: rgba(179, 148, 255, 0.14);
+      --section-pill-text: #d8c8ff;
+      --section-head-bg: rgba(179, 148, 255, 0.1);
+      --section-head-line: rgba(179, 148, 255, 0.5);
+    }
+
+    .theme-teal {
+      --section-dot: var(--accent-teal);
+      --section-border: rgba(63, 224, 186, 0.2);
+      --section-pill-bg: rgba(63, 224, 186, 0.12);
+      --section-pill-text: #aef8e6;
+      --section-head-bg: rgba(63, 224, 186, 0.08);
+      --section-head-line: rgba(63, 224, 186, 0.5);
+    }
+
+    .theme-cyan {
+      --section-dot: var(--accent);
+      --section-border: rgba(133, 214, 255, 0.22);
+      --section-pill-bg: rgba(133, 214, 255, 0.13);
+      --section-pill-text: #cdeeff;
+      --section-head-bg: rgba(133, 214, 255, 0.09);
+      --section-head-line: rgba(133, 214, 255, 0.5);
+    }
+
+    .portrait-card::after,
+    .panel::after,
+    .hero::before,
+    .timeline::before,
+    .cyber-card::before,
+    .project-card::before,
+    .skill-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(133, 214, 255, 0.55), transparent);
+      pointer-events: none;
+    }
+
+    .portrait {
+      min-height: 340px;
+      border-radius: 26px;
+      border: 1px solid rgba(148, 168, 255, 0.16);
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.2), transparent 24%),
+        radial-gradient(circle at 78% 28%, rgba(133, 214, 255, 0.16), transparent 28%),
+        linear-gradient(145deg, rgba(20, 35, 61, 0.98), rgba(9, 16, 30, 0.94)),
+        linear-gradient(180deg, rgba(17, 24, 41, 0.98), rgba(10, 15, 28, 0.98));
+      display: grid;
+      place-items: end start;
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .portrait::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      pointer-events: none;
+    }
+
+    .portrait::after {
+      content: "My Profile";
+      position: relative;
+      z-index: 1;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(12, 18, 32, 0.84);
+      border: 1px solid rgba(133, 214, 255, 0.2);
+      color: rgba(238, 243, 255, 0.84);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+    }
+
+    .github-source {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(12, 18, 32, 0.84);
+      border: 1px solid rgba(133, 214, 255, 0.2);
+      color: rgba(238, 243, 255, 0.84);
+      font-size: 13px;
+      text-decoration: none;
+      transition: 180ms ease;
+    }
+
+    .github-source:hover {
+      background: rgba(22, 32, 52, 0.9);
+      border-color: rgba(133, 214, 255, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .github-source svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .code-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 54px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(94, 128, 196, 0.4);
+      background: linear-gradient(180deg, rgba(11, 18, 32, 0.96), rgba(14, 21, 38, 0.92));
+      color: #eef3ff;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03),
+        0 12px 24px rgba(0, 0, 0, 0.16);
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+
+    .code-link:hover {
+      text-decoration: none;
+      transform: translateY(-1px);
+      border-color: rgba(133, 214, 255, 0.34);
+      background: linear-gradient(180deg, rgba(14, 22, 40, 0.98), rgba(18, 28, 48, 0.94));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 16px 28px rgba(0, 0, 0, 0.2);
+    }
+
+    .code-link svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+      flex: 0 0 auto;
+    }
+
+    .name-block {
+      padding: 18px 2px 6px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: rgba(133, 214, 255, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Trebuchet MS", "Avenir Next Condensed", sans-serif;
+      line-height: 1.04;
+    }
+
+    .name-block h1 {
+      font-size: clamp(2.3rem, 4vw, 4.3rem);
+      color: #f4f7ff;
+      text-shadow: 0 0 18px rgba(133, 214, 255, 0.08);
+    }
+
+    .name-block p {
+      margin: 10px 0 0;
+      color: rgba(238, 243, 255, 0.78);
+      font-size: 1rem;
+    }
+
+    .panel {
+      margin-top: 14px;
+      padding: 16px 18px;
+      box-shadow:
+        var(--shadow),
+        inset 0 0 0 1px var(--section-border);
+    }
+
+    .panel-head,
+    .section-head,
+    .project-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      position: relative;
+      border-bottom: 1px solid var(--section-border);
+      background: linear-gradient(180deg, var(--section-head-bg), rgba(12, 19, 35, 0.28));
+      box-shadow: inset 0 2px 0 var(--section-head-line);
+    }
+
+    .panel-head {
+      margin: -16px -18px 16px;
+      padding: 14px 18px 13px;
+    }
+
+    .section-head {
+      margin: -24px -24px 18px;
+      padding: 15px 24px 14px;
+    }
+
+    .project-head {
+      margin: -22px -22px 16px;
+      padding: 15px 22px 14px;
+    }
+
+    .panel h2,
+    .section-title,
+    .project-head h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #f4f7ff;
+      margin-bottom: 0;
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+    }
+
+    .panel h2::before,
+    .section-title::before,
+    .project-head h3::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--section-dot);
+      box-shadow: 0 0 14px color-mix(in srgb, var(--section-dot) 65%, transparent);
+      flex: 0 0 auto;
+    }
+
+    .level-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--section-border);
+      background: var(--section-pill-bg);
+      color: var(--section-pill-text);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      white-space: nowrap;
+    }
+
+    .skill-showcase {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 14px;
+    }
+
+    .skill-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 58px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(112, 152, 229, 0.48);
+      background: linear-gradient(180deg, rgba(56, 78, 123, 0.5), rgba(44, 64, 104, 0.36));
+      color: #edf3ff;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 10px 24px rgba(0, 0, 0, 0.18);
+    }
+
+    .panel p,
+    .panel li,
+    .copy,
+    .meta,
+    .project-card p,
+    .cyber-card p,
+    .skill-card p {
+      color: rgba(238, 243, 255, 0.88);
+    }
+
+    .panel p,
+    .project-card p,
+    .cyber-card p {
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .panel > ul:not(.info-list) {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .timeline ul,
+    .cyber-card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .panel > ul:not(.info-list) li,
+    .timeline li,
+    .cyber-card li {
+      margin: 7px 0;
+      line-height: 1.6;
+    }
+
+    .panel > ul:not(.info-list) li {
+      margin: 0;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 168, 255, 0.1);
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .info-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .info-list li {
+      margin: 0;
+      padding: 0 0 10px;
+      border-bottom: 1px solid rgba(148, 168, 255, 0.12);
+    }
+
+    .info-list li:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .info-label {
+      display: block;
+      color: rgba(133, 214, 255, 0.78);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .top-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      position: sticky;
+      top: 18px;
+      z-index: 8;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      border-radius: 26px;
+      border: 1px solid rgba(148, 168, 255, 0.12);
+      background: rgba(10, 16, 32, 0.84);
+      box-shadow:
+        0 18px 34px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .nav-links.is-disabled {
+      opacity: 0.42;
+      pointer-events: none;
+      filter: saturate(0.72);
+    }
+
+    .mode-switch {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 168, 255, 0.12);
+      background: linear-gradient(180deg, rgba(8, 13, 26, 0.94), rgba(13, 20, 36, 0.88));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .mode-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 16px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: rgba(238, 243, 255, 0.72);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: transform 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .mode-button:hover {
+      transform: translateY(-1px);
+      color: var(--text);
+    }
+
+    .mode-button:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(133, 214, 255, 0.16);
+    }
+
+    .mode-button.active {
+      background: linear-gradient(180deg, rgba(244, 196, 108, 0.22), rgba(89, 74, 34, 0.26));
+      box-shadow:
+        0 0 0 1px rgba(244, 196, 108, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 12px 24px rgba(0, 0, 0, 0.18);
+      color: #fff5dc;
+    }
+
+    .mode-button.secondary {
+      background: rgba(12, 18, 32, 0.45);
+      box-shadow: inset 0 0 0 1px rgba(148, 168, 255, 0.08);
+    }
+
+    .mode-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 24px;
+      padding: 0 8px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mode-badge-main {
+      border: 1px solid rgba(133, 214, 255, 0.24);
+      background: rgba(133, 214, 255, 0.16);
+      color: #cceeff;
+    }
+
+    .mode-badge-dev {
+      background: #f7d32e;
+      color: #261e00;
+      box-shadow: 0 0 0 1px rgba(247, 211, 46, 0.16);
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active,
+    .page.active2 {
+      display: block;
+      animation: page-reveal 240ms ease;
+    }
+
+    @keyframes page-reveal {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #profile,
+    #experience,
+    #cyber,
+    #projects {
+      scroll-margin-top: var(--anchor-offset);
+    }
+
+    .nav-link,
+    .cta,
+    .ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 15px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 168, 255, 0.14);
+      background: rgba(15, 24, 43, 0.8);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .nav-link:hover,
+    .cta:hover,
+    .ghost:hover {
+      text-decoration: none;
+      transform: translateY(-1px);
+      background: rgba(133, 214, 255, 0.12);
+      border-color: rgba(133, 214, 255, 0.3);
+    }
+
+    .hero {
+      padding: 30px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -120px auto;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(133, 214, 255, 0.14), transparent 52%),
+        radial-gradient(circle at 30% 30%, rgba(179, 148, 255, 0.14), transparent 54%);
+      pointer-events: none;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+    }
+
+    .hero-copy h2 {
+      font-size: clamp(2.1rem, 4vw, 4rem);
+      color: #f4f7ff;
+      margin-bottom: 14px;
+    }
+
+    .hero-copy p {
+      margin: 0;
+      color: rgba(238, 243, 255, 0.86);
+      line-height: 1.75;
+      font-size: 1.02rem;
+    }
+
+    .highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .highlight {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(133, 214, 255, 0.22);
+      color: #dcecff;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .content-grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 30px;
+      border: 1px solid rgba(148, 168, 255, 0.08);
+      background: rgba(8, 12, 24, 0.38);
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.03);
+    }
+
+    .timeline,
+    .cyber-card,
+    .skill-card {
+      padding: 24px;
+      box-shadow:
+        var(--shadow),
+        inset 0 0 0 1px var(--section-border);
+    }
+
+    .timeline-list {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 16px 18px 16px 22px;
+      border-left: 2px solid rgba(133, 214, 255, 0.22);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid rgba(148, 168, 255, 0.08);
+      border-right: 1px solid rgba(148, 168, 255, 0.08);
+      border-bottom: 1px solid rgba(148, 168, 255, 0.08);
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: -8px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-warm);
+      box-shadow: 0 0 0 5px rgba(244, 196, 108, 0.12);
+    }
+
+    .timeline-item h3,
+    .project-card h3,
+    .cyber-card h3,
+    .skill-card h3 {
+      font-size: 1.2rem;
+      color: #f1f5ff;
+    }
+
+    .meta {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .chip {
+      padding: 8px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 168, 255, 0.12);
+      background: rgba(255, 255, 255, 0.035);
+      color: rgba(238, 243, 255, 0.92);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .project-grid,
+    .skill-grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .project-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .skill-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .project-card {
+      padding: 22px 22px 22px;
+      box-shadow:
+        var(--shadow),
+        inset 0 0 0 1px var(--section-border);
+    }
+
+    .project-card p {
+      margin-top: 12px;
+    }
+
+    .project-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .cta {
+      background: rgba(133, 214, 255, 0.12);
+      border-color: rgba(133, 214, 255, 0.26);
+    }
+
+    .ghost {
+      color: rgba(238, 243, 255, 0.8);
+    }
+
+    .note {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(63, 224, 186, 0.18);
+      background: rgba(63, 224, 186, 0.08);
+      color: #d7fff5;
+      line-height: 1.65;
+    }
+
+    .skill-card p {
+      margin-top: 10px;
+      line-height: 1.7;
+    }
+
+    footer {
+      margin-top: 22px;
+      color: rgba(153, 167, 200, 0.86);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .contact-footer {
+      margin-top: 22px;
+      padding: 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(133, 214, 255, 0.14);
+      background: linear-gradient(180deg, rgba(14, 22, 40, 0.96), rgba(9, 15, 28, 0.94));
+      box-shadow:
+        var(--shadow),
+        inset 0 0 0 1px rgba(133, 214, 255, 0.08);
+    }
+
+    .contact-footer strong {
+      display: block;
+      color: #f4f7ff;
+      font-size: 1.02rem;
+      margin-bottom: 6px;
+    }
+
+    .contact-footer p {
+      margin: 0;
+      color: rgba(238, 243, 255, 0.74);
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .contact-form-row {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .contact-form label {
+      display: grid;
+      gap: 8px;
+      color: rgba(133, 214, 255, 0.8);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      border: 1px solid rgba(148, 168, 255, 0.16);
+      border-radius: 16px;
+      background: rgba(7, 12, 24, 0.88);
+      color: var(--text);
+      font: inherit;
+      padding: 14px 15px;
+      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: rgba(153, 167, 200, 0.56);
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: rgba(133, 214, 255, 0.4);
+      box-shadow: 0 0 0 3px rgba(133, 214, 255, 0.1);
+      background: rgba(10, 17, 31, 0.96);
+    }
+
+    .contact-form textarea {
+      min-height: 132px;
+      resize: vertical;
+    }
+
+    .contact-form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .contact-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid rgba(133, 214, 255, 0.26);
+      border-radius: 999px;
+      background: rgba(133, 214, 255, 0.12);
+      color: var(--text);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .contact-submit:hover {
+      transform: translateY(-1px);
+      background: rgba(133, 214, 255, 0.18);
+      border-color: rgba(133, 214, 255, 0.38);
+    }
+
+    .contact-clear {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid rgba(148, 168, 255, 0.14);
+      border-radius: 999px;
+      background: rgba(15, 24, 43, 0.8);
+      color: var(--text);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .contact-clear:hover {
+      transform: translateY(-1px);
+      background: rgba(133, 214, 255, 0.12);
+      border-color: rgba(133, 214, 255, 0.3);
+    }
+
+    .contact-note {
+      color: rgba(153, 167, 200, 0.76);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .dev-showcase {
+      margin-top: 4px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(9, 14, 26, 0.97), rgba(11, 18, 34, 0.95));
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dev-showcase::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(133, 214, 255, 0.55), transparent);
+      pointer-events: none;
+    }
+
+    .dev-showcase::after {
+      content: "";
+      position: absolute;
+      inset: auto -100px -130px auto;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(133, 214, 255, 0.16), transparent 54%),
+        radial-gradient(circle at 30% 30%, rgba(244, 196, 108, 0.14), transparent 56%);
+      pointer-events: none;
+    }
+
+    .dev-showcase-head,
+    .dev-grid {
+      position: relative;
+      z-index: 1;
+    }
+
+    .dev-showcase-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid rgba(148, 168, 255, 0.1);
+    }
+
+    .dev-showcase-head h2 {
+      font-size: clamp(2rem, 3.6vw, 3.2rem);
+      color: #f5f7ff;
+      margin-top: 0;
+    }
+
+    .dev-showcase-head p {
+      margin: 12px 0 0;
+      max-width: 760px;
+      color: rgba(238, 243, 255, 0.84);
+      line-height: 1.75;
+    }
+
+    .dev-status {
+      display: grid;
+      gap: 12px;
+      justify-items: end;
+    }
+
+    .dev-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 24px;
+    }
+
+    .dev-grid .project-card {
+      height: 100%;
+    }
+
+    .dev-grid .project-card.featured {
+      grid-column: 1 / -1;
+      background:
+        radial-gradient(circle at top right, rgba(179, 148, 255, 0.14), transparent 35%),
+        linear-gradient(180deg, rgba(22, 28, 52, 0.98), rgba(12, 18, 34, 0.95));
+    }
+
+    @media (max-width: 980px) {
+      :root {
+        --anchor-offset: 65px;
+      }
+
+      body {
+        background:
+          radial-gradient(980px 720px at 10% 100%, rgba(179, 148, 255, 0.18), transparent 34%),
+          radial-gradient(900px 620px at 78% 4%, rgba(54, 193, 255, 0.15), transparent 36%),
+          linear-gradient(180deg, #090d18 0%, #0b1121 34%, #0b1428 100%);
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .content {
+        padding-top: 0;
+      }
+
+      .top-nav {
+        top: 12px;
+      }
+
+      .nav-links {
+        flex: 1 1 100%;
+      }
+
+      .mode-switch {
+        margin-left: 0;
+      }
+
+      .dev-showcase-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .dev-status {
+        justify-items: start;
+      }
+
+      .portrait {
+        width: 100%;
+        max-width: 420px;
+        /* min-height: clamp(420px, 58vw, 580px); */
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .layout {
+        width: min(100% - 20px, 1240px);
+        padding-top: 12px;
+      }
+
+      .contact-form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .portrait {
+        max-width: 385px;
+        /* min-height: clamp(360px, 78vw, 500px); */
+      }
+
+      .hero,
+      .timeline,
+      .cyber-card,
+      .skill-card,
+      .project-card,
+      .dev-showcase,
+      .panel,
+      .portrait-card {
+        border-radius: 20px;
+      }
+
+      .project-grid,
+      .skill-grid,
+      .dev-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dev-grid .project-card.featured {
+        grid-column: auto;
+      }
+
+      .panel-head,
+      .section-head,
+      .project-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .mode-switch {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .mode-button {
+        flex: 1 1 0;
+      }
+
+
+      .skill-pill {
+        min-height: 52px;
+        padding: 0 18px;
+        /* font-size: 18px; */
+      }
+    }
+
+    @media (max-width: 540px) {
+      .top-nav {
+        padding: 12px;
+      }
+
+      .mode-button {
+        min-height: 44px;
+        padding: 0 12px;
+        font-size: 13px;
+      }
+
+      .portrait {
+        max-width: 360px;
+        min-height: clamp(240px, 78vw, 320px);
+        padding: 16px;
+      }
+
+      .dev-showcase {
+        padding: 22px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="portrait-card">
+        <div class="portrait" aria-label="Profile photo placeholder">
+          <img src="Abbe.png" alt="Abbe Zineh" style="width: 100%; height: 100%; border-radius: 20px; object-fit: cover;" />
+        </div>
+        <a class="github-source" href="https://github.com/Abbe-98/About-Me/blob/main/index.html" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        Source code on GitHub
+      </a>
+        <div class="name-block">
+          <p class="eyebrow">CV and Portfolio</p>
+          <h1>Abbe Zineh</h1>
+          <p>System architecture developer with experience in service, production, delivery workflows, and web development.</p>
+        </div>
+      </section>
+
+      <section class="panel theme-violet">
+        <div class="panel-head">
+          <h2>Top Skills</h2>
+          <span class="level-badge">Core stack</span>
+        </div>
+        <div class="skill-showcase" aria-label="Top skills">
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">C#</span>
+          <span class="skill-pill">HTML</span>
+          <span class="skill-pill">SQL</span>
+          <span class="skill-pill">CSS</span>
+          <span class="skill-pill">Python</span>
+          <span class="skill-pill">Java</span>
+        </div>
+      </section>
+
+      <section class="panel theme-cyan">
+        <div class="panel-head">
+          <h2>Contact</h2>
+          <span class="level-badge">Ready</span>
+        </div>
+        <ul class="info-list">
+          <li>
+            <span class="info-label">Email</span>
+            <a href="mailto:majd.zx@hotmail.com">majd.zx@hotmail.com</a>
+          </li>
+          <li>
+            <span class="info-label">Phone</span>
+            <a href="tel:+46737707904">0737-707904</a>
+          </li>
+          <li>
+            <span class="info-label">Address</span>
+            Varnamo, Sweden
+          </li>
+        </ul>
+      </section>
+
+      <section class="panel theme-amber" data-dev-hidden>
+        <div class="panel-head">
+          <h2>Education</h2>
+          <span class="level-badge">Ongoing</span>
+        </div>
+        <ul>
+          <li><strong>Upper Secondary, Health and Social Care Program</strong><br />GKC, graduated in 2021.</li>
+          <li><strong>System Architecture with a Focus on Programming</strong><br />University of Boras, started in 2024. Two years completed and one year remaining.</li>
+          <li><strong>Cybersecurity Course and Practical Labs</strong><br />Focused on secure web development, SQL injection risks, brute-force protection, login hardening, and logging in test environments.</li>
+        </ul>
+      </section>
+
+      <section class="panel theme-teal" data-dev-hidden>
+        <div class="panel-head">
+          <h2>Languages</h2>
+          <span class="level-badge">3 spoken</span>
+        </div>
+        <ul>
+          <li>Swedish: Fluent in speech and writing.</li>
+          <li>English: Very strong spoken and written proficiency.</li>
+          <li>Arabic: Native language.</li>
+        </ul>
+      </section>
+    </aside>
+
+    <section class="content">
+      <nav class="top-nav" aria-label="Quick links and view mode">
+        <div class="nav-links" id="portfolio-links">
+          <a class="nav-link" href="#profile">Profile</a>
+          <a class="nav-link" href="#experience">Experience</a>
+          <a class="nav-link" href="#cyber">Cybersecurity</a>
+          <a class="nav-link" href="#projects">Projects</a>
+        </div>
+        <div class="mode-switch" role="group" aria-label="Display mode">
+          <button class="mode-button active" type="button" data-page="main-portfolio" aria-pressed="true">
+            <span class="mode-badge mode-badge-main">CV</span>
+            Main Portfolio
+          </button>
+          <button class="mode-button secondary" type="button" data-page="dev-lab" aria-pressed="false">
+            <span class="mode-badge mode-badge-dev">DS</span>
+            Dev Demos
+          </button>
+        </div>
+      </nav>
+
+      <div class="page active2" id="main-portfolio">
+        <section class="hero" id="profile">
+          <div class="hero-copy">
+            <p class="eyebrow">Available for work, internships, and projects</p>
+            <h2>Practical experience with a clear interest in development and cybersecurity.</h2>
+            <p>
+              This page summarizes the content of my CV and expands it with a portfolio section highlighting projects in cybersecurity, web development, and application development. It includes experience from several roles, programming studies, and hands-on projects. The portfolio also features controlled demo environments designed to illustrate common security risks such as SQL injection and brute-force attacks, along with examples of how these vulnerabilities can be understood and mitigated in authorized testing scenarios.
+            </p>
+            <div class="highlights">
+              <span class="highlight">System Architecture</span>
+              <span class="highlight">Web Development</span>
+              <span class="highlight">Application Development</span>
+              <span class="highlight">Cybersecurity</span>
+              <span class="highlight">Customer Service</span>
+              <span class="highlight">Operations and Delivery</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-grid">
+          <section class="timeline theme-amber" id="experience">
+            <div class="section-head">
+              <h2 class="section-title">Work Experience</h2>
+              <span class="level-badge">Timeline</span>
+            </div>
+            <div class="timeline-list">
+              <article class="timeline-item">
+                <h3>EVO AB</h3>
+                <div class="meta">Machine Operator and Setter</div>
+                <ul>
+                  <li>Worked with accuracy, quality, and responsibility in a production environment.</li>
+                  <li>Used to following routines, solving problems quickly, and maintaining a steady workflow.</li>
+                </ul>
+              </article>
+
+              <article class="timeline-item">
+                <h3>Varnamo Taxi</h3>
+                <div class="meta">Planner, Customer Service, and Taxi Driver</div>
+                <ul>
+                  <li>Handled planning, service, and customer communication in a fast-paced setting.</li>
+                  <li>Built strong experience in accountability, punctuality, and daily coordination.</li>
+                </ul>
+              </article>
+
+              <article class="timeline-item">
+                <h3>ZmLojo</h3>
+                <div class="meta">Development and Web Management</div>
+                <ul>
+                  <li>Worked with web-related tasks, structure, and content responsibility.</li>
+                  <li>Combined technical interest with practical responsibility for digital presence.</li>
+                </ul>
+              </article>
+
+              <article class="timeline-item">
+                <h3>Swedcirc AB</h3>
+                <div class="meta">Delivery and Order Handling</div>
+                <ul>
+                  <li>Worked with delivery workflows, organization, and order coordination.</li>
+                  <li>Developed a structured way of working with a focus on precision and service.</li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <section class="cyber-card theme-teal" id="cyber">
+            <div class="section-head">
+              <h2 class="section-title">Cybersecurity and Course Content</h2>
+              <span class="level-badge">Intermediate</span>
+            </div>
+            <p>
+              I have also studied cybersecurity through coursework and labs focused on how web systems are protected in
+              practice. The work has been grounded in education, analysis, and responsible test environments where the
+              purpose is to understand risks and build stronger defenses, not to perform harmful attacks.
+            </p>
+            <div class="chips">
+              <span class="chip">OWASP Fundamentals</span>
+              <span class="chip">SQL Injection Risks</span>
+              <span class="chip">Brute-Force Detection</span>
+              <span class="chip">Hydra in Lab Environments</span>
+              <span class="chip">Input Validation</span>
+              <span class="chip">Password Hashing</span>
+              <span class="chip">Session Management</span>
+              <span class="chip">Rate limiting</span>
+              <span class="chip">Account Lockout</span>
+              <span class="chip">Secure Logging</span>
+            </div>
+            <ul style="margin-top: 18px;">
+              <li>Completed modules on SQL injection to understand how insecure input handling can affect database queries and how parameterized statements stop the issue.</li>
+              <li>Studied brute-force scenarios and how automated attempts can be detected through logging, rate limiting, MFA challenges, and account protections.</li>
+              <li>Worked with additional security areas such as role-based authorization, least privilege, error handling, and hardening of login flows.</li>
+              <li>Analyzed how tools like Hydra can be used in authorized labs to demonstrate risks and verify that protections work.</li>
+            </ul>
+            <div class="note">
+              All demos below are built as educational and defensive examples. They are intended for training and testing
+              in approved environments and do not include real attack instructions.
+            </div>
+          </section>
+
+          <section class="skill-card theme-violet">
+            <div class="section-head">
+              <h2 class="section-title">Competency Profile</h2>
+              <span class="level-badge">Core profile</span>
+            </div>
+            <div class="skill-grid">
+              <article>
+                <h3>Technology</h3>
+                <p>HTML, CSS, JavaScript, SQL, foundational backend thinking, web structure, and ongoing studies in system architecture.</p>
+              </article>
+              <article>
+                <h3>Working Style</h3>
+                <p>Structured, eager to learn, and comfortable taking responsibility in roles where quality, punctuality, and collaboration matter.</p>
+              </article>
+              <article>
+                <h3>Service</h3>
+                <p>Strong customer interaction and clear communication through experience in customer service, planning, and delivery work.</p>
+              </article>
+              <article>
+                <h3>Cybersecurity</h3>
+                <p>Understands the difference between vulnerable and hardened solutions and can explain how protections are built into web and login flows.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="timeline theme-cyan" id="projects">
+            <div class="section-head">
+              <h2 class="section-title">Projects and Demos</h2>
+              <span class="level-badge">Live demos</span>
+            </div>
+            <div class="project-grid">
+              <article class="project-card theme-violet">
+                <div class="project-head">
+                  <h3>SQL Injection: Risk vs Protection</h3>
+                  <span class="level-badge">Simulation</span>
+                </div>
+                <p>
+                  A navigable demo page that shows the difference between insecure query building and parameterized
+                  statements. The focus is on analysis, secure development practices, and how a vulnerable solution can
+                  be avoided.
+                </p>
+                <div class="chips">
+                  <span class="chip">SQL</span>
+                  <span class="chip">Secure Web Development</span>
+                  <span class="chip">Educational Demo</span>
+                </div>
+                <a class="github-source" href="https://github.com/Abbe-98/About-Me/blob/main/sql-defense-demo.html" target="_blank" rel="noopener">
+                <svg viewBox="0 0 16 16">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                Source code on GitHub
+                </a>
+                <div class="project-actions">
+                  <a class="cta" href="https://abbe-98.github.io/About-Me/sql-defense-demo.html">Open demo</a>
+                </div>
+              </article>
+
+              <article class="project-card theme-teal">
+                <div class="project-head">
+                  <h3>Brute Force and Hydra: Detection vs Defense</h3>
+                  <span class="level-badge">Interactive</span>
+                </div>
+                <p>
+                  An interactive demo that illustrates how automated login attempts can be assessed and stopped with
+                  rate limiting, account lockout, MFA challenges, and logging in a defensive test environment.
+                </p>
+                <div class="chips">
+                  <span class="chip">Authentication</span>
+                  <span class="chip">Hydra Context</span>
+                  <span class="chip">Rate limiting</span>
+                </div>
+                <a class="github-source" href="https://github.com/Abbe-98/About-Me/blob/main/bruteforce-defense-demo.html" target="_blank" rel="noopener">
+                <svg viewBox="0 0 16 16">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                Source code on GitHub
+                </a>
+                <div class="project-actions">
+                  <a class="cta" href="https://abbe-98.github.io/About-Me/bruteforce-defense-demo.html">Open demo</a>
+                </div>
+              </article>
+
+            <article class="project-card theme-amber">
+              <div class="project-head">
+                <h3>MathRush</h3>
+                <span class="level-badge">Game dev</span>
+              </div>
+                <p>
+                  A simple browser game built with HTML, CSS, and JavaScript where the player solves timed math
+                  questions, chooses a difficulty mode, and can track results through a built-in high-score screen.
+                </p>
+                <div class="chips">
+                  <span class="chip">JavaScript</span>
+                  <span class="chip">Browser Game</span>
+                  <span class="chip">High Scores</span>
+                </div>
+                <a class="github-source" href="https://github.com/Abbe-98/Webb-Utveckling-Lab-1" target="_blank" rel="noopener">
+               <svg viewBox="0 0 16 16">
+               <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+               </svg>
+               Source code on GitHub
+               </a>
+              <div class="project-actions">
+                <a class="cta" href="https://abbe-98.github.io/Webb-Utveckling-Lab-1/" target="_blank" rel="noopener">Play game</a>
+              </div>
+            </article>
+
+            <article class="project-card theme-cyan">
+              <div class="project-head">
+                <h3>TownSquare</h3>
+                <span class="level-badge">ASP.NET Core MVC</span>
+              </div>
+              <p>
+                A local events board built with ASP.NET Core MVC and Entity Framework where community members can
+                register, log in, create events, discover activities, and engage with other users through event-based
+                interaction.
+              </p>
+              <div class="chips">
+                <span class="chip">Entity Framework</span>
+                <span class="chip">CRUD</span>
+                <span class="chip">RSVP system</span>
+                <span class="chip">Code only</span>
+              </div>
+              <p>
+                Authorized users can manage their own events with full CRUD support, while anonymous visitors can only
+                browse event listings. The project also includes RSVP notifications, visibility rules for attendee
+                details, and optional integrations for Google sign-in and SendGrid email verification.
+              </p>
+              <a class="github-source" href="https://github.com/Abbe-98/Webb-lab-2" target="_blank" rel="noopener">
+              <svg viewBox="0 0 16 16">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              Source code on GitHub
+              </a>
+            </article>
+
+            <article class="project-card theme-violet">
+              <div class="project-head">
+                <h3>Todo Mobile App</h3>
+                <span class="level-badge">Mobile app</span>
+              </div>
+              <p>
+                A mobile-focused to-do application project included as part of my portfolio to show app structure,
+                task-management flow, and code organization in a smaller product format.
+              </p>
+              <div class="chips">
+                <span class="chip">Mobile UI</span>
+                <span class="chip">Task management</span>
+                <span class="chip">Code only</span>
+              </div>
+              <a class="github-source" href="https://github.com/Abbe-98/Todo" target="_blank" rel="noopener">
+              <svg viewBox="0 0 16 16">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              Source code on GitHub
+              </a>
+            </article>
+          </div>
+          <footer class="contact-footer">
+              <strong>Send me a message</strong>
+              <p>Write a short message here and open your email app with everything prefilled to my inbox.</p>
+              <form class="contact-form" id="contact-form">
+                <div class="contact-form-row">
+                  <label for="contact-name">
+                    Name
+                    <input id="contact-name" name="name" type="text" placeholder="Your name" />
+                  </label>
+                  <label for="contact-email">
+                    Email
+                    <input id="contact-email" name="email" type="email" placeholder="your@email.com" required />
+                  </label>
+                </div>
+                <label for="contact-message">
+                  Message
+                  <textarea id="contact-message" name="message" placeholder="Write your message here" required></textarea>
+                </label>
+                <div class="contact-form-actions">
+                  <button class="contact-submit" type="submit">Send to majd.zx@hotmail.com</button>
+                  <button class="contact-clear" type="reset">Clear form</button>
+                  <span class="contact-note">No backend is used here. The button opens the visitor's mail app.</span>
+                </div>
+              </form>
+            </footer>
+          </section>
+        </div>
+      </div>
+
+      <section class="page dev-showcase" id="dev-lab" aria-labelledby="dev-lab-title" hidden>
+        <div class="dev-showcase-head">
+          <div>
+  <p class="eyebrow">Developer showcase</p>
+  <h2 id="dev-lab-title">Selected development projects and security demonstration environments.</h2>
+  <p>
+    This view highlights a focused selection of development work across JavaScript, ASP.NET Core MVC, and
+    mobile-oriented projects together with controlled security demonstration environments. The projects show
+    practical development skills, product structure, and examples of how common web vulnerabilities can be
+    identified, analyzed, and mitigated in authorized testing scenarios.
+  </p>
+</div>
+
+<div class="dev-status">
+  <span class="level-badge">5 highlighted projects</span>
+  <div class="chips">
+    <span class="chip">JavaScript</span>
+    <span class="chip">Web development</span>
+    <span class="chip">ASP.NET Core MVC</span>
+    <span class="chip">Mobile app</span>
+    <span class="chip">Security demos</span>
+  </div>
+</div>
+        </div>
+        <div class="dev-grid">
+          <article class="project-card theme-violet featured">
+            <div class="project-head">
+              <h3>SQL Injection: Risk vs Protection</h3>
+              <span class="level-badge">Featured demo</span>
+            </div>
+            <p>
+              A compact walkthrough of insecure query building versus parameterized statements, presented as a safe
+              educational demo focused on prevention, review, and secure coding choices.
+            </p>
+            <div class="chips">
+              <span class="chip">JavaScript</span>
+              <span class="chip">SQL</span>
+              <span class="chip">Safe testing</span>
+            </div>
+            <div class="project-actions">
+              <a class="cta" href="https://abbe-98.github.io/About-Me/sql-defense-demo.html">Open demo</a>
+              <a class="code-link" href="https://github.com/Abbe-98/About-Me/blob/main/sql-defense-demo.html" target="_blank" rel="noopener">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                Source code on GitHub
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card theme-teal">
+            <div class="project-head">
+              <h3>Brute Force Defense</h3>
+              <span class="level-badge">Interactive</span>
+            </div>
+            <p>
+              Shows how login protection can detect and stop repeated automated attempts with rate limiting, logging,
+              and additional security checks in a controlled environment.
+            </p>
+            <div class="chips">
+              <span class="chip">Authentication</span>
+              <span class="chip">Hydra context</span>
+              <span class="chip">Rate limiting</span>
+            </div>
+            <div class="project-actions">
+              <a class="cta" href="https://abbe-98.github.io/About-Me/bruteforce-defense-demo.html">Open demo</a>
+              <a class="code-link" href="https://github.com/Abbe-98/About-Me/blob/main/bruteforce-defense-demo.html" target="_blank" rel="noopener">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                Source code on GitHub
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card theme-amber">
+            <div class="project-head">
+              <h3>MathRush</h3>
+              <span class="level-badge">Game dev</span>
+            </div>
+            <p>
+              A browser-based game project built with HTML, CSS, and JavaScript, with timed rounds, difficulty modes,
+              and a simple high-score flow.
+            </p>
+            <div class="chips">
+              <span class="chip">Browser game</span>
+              <span class="chip">JavaScript</span>
+              <span class="chip">UI logic</span>
+            </div>
+            <div class="project-actions">
+              <a class="cta" href="https://abbe-98.github.io/Webb-Utveckling-Lab-1/" target="_blank" rel="noopener">Play game</a>
+              <a class="code-link" href="https://github.com/Abbe-98/Webb-Utveckling-Lab-1" target="_blank" rel="noopener">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                Source code on GitHub
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card theme-cyan">
+            <div class="project-head">
+              <h3>TownSquare</h3>
+              <span class="level-badge">Code only</span>
+            </div>
+            <p>
+              A local events board built with ASP.NET Core MVC and Entity Framework where registered users can create,
+              manage, and join events while anonymous visitors can browse the event listings.
+            </p>
+            <div class="chips">
+              <span class="chip">ASP.NET Core MVC</span>
+              <span class="chip">Entity Framework</span>
+              <span class="chip">RSVP system</span>
+            </div>
+            <div class="project-actions">
+              <a class="code-link" href="https://github.com/Abbe-98/Webb-lab-2" target="_blank" rel="noopener">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                Source code on GitHub
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card theme-violet">
+            <div class="project-head">
+              <h3>Todo Mobile App</h3>
+              <span class="level-badge">Code only</span>
+            </div>
+            <p>
+              A mobile to-do application project included to show smaller-scale product structure, task flow, and code
+              organization in an app-focused format.
+            </p>
+            <div class="chips">
+              <span class="chip">Mobile UI</span>
+              <span class="chip">Task flow</span>
+              <span class="chip">App structure</span>
+            </div>
+            <div class="project-actions">
+              <a class="code-link" href="https://github.com/Abbe-98/Todo" target="_blank" rel="noopener">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                Source code on GitHub
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script>
+    const modeButtons = document.querySelectorAll(".mode-button");
+    const portfolioLinks = document.getElementById("portfolio-links");
+    const devHiddenBlocks = document.querySelectorAll("[data-dev-hidden]");
+    const contactForm = document.getElementById("contact-form");
+    const legacyDevDemosSuffix = "-div-demos";
+    const viewQueryParam = "view";
+    const devDemosView = "dev-demos";
+    const mainPortfolioPageId = "main-portfolio";
+    const devLabPageId = "dev-lab";
+    const initialBasePath = (() => {
+      const currentPath = window.location.pathname;
+
+      if (currentPath.endsWith(legacyDevDemosSuffix)) {
+        return currentPath.slice(0, -legacyDevDemosSuffix.length) || "/Index.html";
+      }
+
+      return currentPath === "/" ? "/Index.html" : currentPath;
+    })();
+
+    function isDevDemosUrl(url) {
+      return (
+        url.pathname.endsWith(legacyDevDemosSuffix) ||
+        url.searchParams.get(viewQueryParam) === devDemosView
+      );
+    }
+
+    function getPageIdFromLocation() {
+      const url = new URL(window.location.href);
+      return isDevDemosUrl(url) ? devLabPageId : mainPortfolioPageId;
+    }
+
+    function syncUrlWithPage(pageId, replaceHistory = false) {
+      const url = new URL(window.location.href);
+      url.pathname = initialBasePath;
+      url.hash = "";
+
+      if (pageId === devLabPageId) {
+        url.searchParams.set(viewQueryParam, devDemosView);
+      } else {
+        url.searchParams.delete(viewQueryParam);
+      }
+
+      const targetUrl = `${url.pathname}${url.search}`;
+      const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+      if (currentUrl === targetUrl) {
+        return;
+      }
+
+      const historyMethod = replaceHistory ? "replaceState" : "pushState";
+      window.history[historyMethod]({ pageId }, "", targetUrl);
+    }
+
+    function showPage(pageId, options = {}) {
+      const { syncUrl = true, replaceHistory = false } = options;
+      const pages = document.querySelectorAll(".page");
+      const isPortfolioPage = pageId === mainPortfolioPageId;
+
+      pages.forEach((page) => {
+        page.classList.remove("active", "active2");
+        page.hidden = true;
+      });
+
+      const selectedPage = document.getElementById(pageId);
+
+      if (!selectedPage) {
+        return;
+      }
+
+      selectedPage.hidden = false;
+
+      if (!isPortfolioPage) {
+        selectedPage.classList.add("active");
+      } else {
+        selectedPage.classList.add("active2");
+      }
+
+      if (portfolioLinks) {
+        portfolioLinks.classList.toggle("is-disabled", !isPortfolioPage);
+
+        portfolioLinks.querySelectorAll("a").forEach((link) => {
+          link.tabIndex = isPortfolioPage ? 0 : -1;
+          link.setAttribute("aria-disabled", String(!isPortfolioPage));
+        });
+      }
+
+      devHiddenBlocks.forEach((block) => {
+        block.hidden = !isPortfolioPage;
+        block.setAttribute("aria-hidden", String(!isPortfolioPage));
+      });
+
+      modeButtons.forEach((button) => {
+        const isActive = button.dataset.page === pageId;
+        button.classList.toggle("active", isActive);
+        button.classList.toggle("secondary", !isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+
+      if (syncUrl) {
+        syncUrlWithPage(pageId, replaceHistory);
+      }
+    }
+
+    modeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        showPage(button.dataset.page);
+      });
+    });
+
+    window.addEventListener("popstate", () => {
+      showPage(getPageIdFromLocation(), { syncUrl: false });
+    });
+
+    showPage(getPageIdFromLocation(), { replaceHistory: true });
+
+    if (contactForm) {
+      contactForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById("contact-name").value.trim();
+        const email = document.getElementById("contact-email").value.trim();
+        const message = document.getElementById("contact-message").value.trim();
+        const subject = encodeURIComponent(`Portfolio contact from ${name || "website visitor"}`);
+        const body = encodeURIComponent(
+          [
+            name ? `Name: ${name}` : null,
+            `Email: ${email}`,
+            "",
+            "Message:",
+            message
+          ]
+            .filter(Boolean)
+            .join("\n")
+        );
+
+        window.location.href = `mailto:majd.zx@hotmail.com?subject=${subject}&body=${body}`;
+      });
+    }
+  </script>
+</body>
+</html>
