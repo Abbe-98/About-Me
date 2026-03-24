@@ -9,51 +9,51 @@
 [![SQL](https://img.shields.io/badge/SQL-Server-cc2927?logo=microsoftsqlserver&logoColor=white)](https://www.microsoft.com/en-us/sql-server)
 [![Live Demo](https://img.shields.io/badge/Live-Demo-85d6ff?logo=githubpages)](https://abbe-98.github.io/About-Me/)
 
-## 📄 Om detta repository
+## 📄 About This Repository
 
-Denna sida fungerar som mitt digitala CV och portfolio. Här samlas mina erfarenheter, utbildning och projekt inom systemarkitektur, webbutveckling och cybersäkerhet.
+This page serves as my digital CV and portfolio. It contains my experience, education, and projects in system architecture, web development, and cybersecurity.
 
-### 🔗 Innehåll
-- **CV** – Arbetslivserfarenhet, utbildning och kompetenser
-- **Portfolio** – Utvalda projekt med live-demos och källkod
-- **Cybersäkerhetsdemos** – SQL-injektion och brute-force försvar
-- **Kontakt** – E-post, telefon och LinkedIn
-
----
-
-## 🚀 Mina projekt
-
-| Projekt | Beskrivning | Tekniker | Länkar |
-|:--------|:------------|:---------|:-------|
-| **TownSquare** | Evenemangsplattform med användarregistrering, CRUD, RSVP och rollbaserad åtkomst. | C#, ASP.NET Core MVC, Entity Framework, SQL Server | [GitHub](https://github.com/Abbe-98/Webb-lab-2) |
-| **MathRush** | Tidsbaserat mattespel med high score-lista och flera svårighetsgrader. | HTML, CSS, JavaScript | [Demo](https://abbe-98.github.io/Webb-Utveckling-Lab-1/) · [GitHub](https://github.com/Abbe-98/Webb-Utveckling-Lab-1) |
-| **Todo App** | Mobil-focused att-göra-applikation som visar appstruktur och kodorganisation. | C#, .NET, Mobile UI | [GitHub](https://github.com/Abbe-98/Todo) |
-| **SQL Injection Demo** | Pedagogisk demo som visar skillnaden mellan sårbar och säker kod mot SQL-injektion. | HTML, CSS, JavaScript | [Demo](https://abbe-98.github.io/About-Me/sql-defense-demo.html) · [GitHub](https://github.com/Abbe-98/About-Me/blob/main/sql-defense-demo.html) |
-| **Brute Force Defense** | Interaktiv demo av inloggningsskydd med rate limiting och account lockout. | HTML, CSS, JavaScript | [Demo](https://abbe-98.github.io/About-Me/bruteforce-defense-demo.html) · [GitHub](https://github.com/Abbe-98/About-Me/blob/main/bruteforce-defense-demo.html) |
+### 🔗 Contents
+- **CV** – Work experience, education, and competencies
+- **Portfolio** – Selected projects with live demos and source code
+- **Cybersecurity Demos** – SQL injection and brute force defense
+- **Contact** – Email, phone, and LinkedIn
 
 ---
 
-## 🛠️ Tekniker och verktyg
+## 🚀 My Projects
 
-| Kategori | Tekniker |
-|:---------|:---------|
-| **Språk** | C#, JavaScript, Python, Java, SQL, HTML5, CSS3 |
+| Project | Description | Technologies | Links |
+|:--------|:------------|:-------------|:------|
+| **TownSquare** | Event platform with user registration, CRUD, RSVP, and role-based access. | C#, ASP.NET Core MVC, Entity Framework, SQL Server | [GitHub](https://github.com/Abbe-98/Webb-lab-2) |
+| **MathRush** | Timed math game with high score tracking and multiple difficulty levels. | HTML, CSS, JavaScript | [Demo](https://abbe-98.github.io/Webb-Utveckling-Lab-1/) · [GitHub](https://github.com/Abbe-98/Webb-Utveckling-Lab-1) |
+| **Todo App** | Mobile-focused to-do application showcasing app structure and code organization. | C#, .NET, Mobile UI | [GitHub](https://github.com/Abbe-98/Todo) |
+| **SQL Injection Demo** | Educational demo showing the difference between vulnerable and secure code against SQL injection. | HTML, CSS, JavaScript | [Demo](https://abbe-98.github.io/About-Me/sql-defense-demo.html) · [GitHub](https://github.com/Abbe-98/About-Me/blob/main/sql-defense-demo.html) |
+| **Brute Force Defense** | Interactive demo of login protection with rate limiting and account lockout. | HTML, CSS, JavaScript | [Demo](https://abbe-98.github.io/About-Me/bruteforce-defense-demo.html) · [GitHub](https://github.com/Abbe-98/About-Me/blob/main/bruteforce-defense-demo.html) |
+
+---
+
+## 🛠️ Technologies & Tools
+
+| Category | Technologies |
+|:---------|:-------------|
+| **Languages** | C#, JavaScript, Python, Java, SQL, HTML5, CSS3 |
 | **Backend** | ASP.NET Core MVC, Entity Framework, REST API |
-| **Frontend** | Responsiv design, Tailwind CSS, Vanilla JS |
-| **Databas** | SQL Server, SQLite, T-SQL |
-| **Säkerhet** | OWASP Top 10, SQL-injektionsskydd, brute-force-försvar, inputvalidering |
-| **Verktyg** | Git, GitHub, Docker, Visual Studio, VS Code, Burp Suite |
+| **Frontend** | Responsive Design, Tailwind CSS, Vanilla JS |
+| **Database** | SQL Server, SQLite, T-SQL |
+| **Security** | OWASP Top 10, SQL Injection Protection, Brute Force Defense, Input Validation |
+| **Tools** | Git, GitHub, Docker, Visual Studio, VS Code, Burp Suite |
 
 ---
 
-## 📫 Kontakt
+## 📫 Contact
 
 | | |
 |:--|:--|
-| **E-post** | [majd.zx@hotmail.com](mailto:majd.zx@hotmail.com) |
-| **Telefon** | [0737-707904](tel:+46737707904) |
-| **LinkedIn** | [linkedin.com/in/abbe-zineh](https://www.linkedin.com/in/majd-zeinah-8a6058a4/) |
+| **Email** | [majd.zx@hotmail.com](mailto:majd.zx@hotmail.com) |
+| **Phone** | [0737-707904](tel:+46737707904) |
+| **LinkedIn** | [linkedin.com/in/majd-zeinah-8a6058a4](https://www.linkedin.com/in/majd-zeinah-8a6058a4/) |
 
 ---
 
-⭐️ *Se min portfolio live: [abbe-98.github.io/About-Me](https://abbe-98.github.io/About-Me/)*
+⭐️ *View my portfolio live: [abbe-98.github.io/About-Me](https://abbe-98.github.io/About-Me/)*
