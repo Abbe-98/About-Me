@@ -52,7 +52,7 @@ This page serves as my digital CV and portfolio. It contains my experience, educ
 |:--|:--|
 | **Email** | [majd.zx@hotmail.com](mailto:majd.zx@hotmail.com) |
 | **Phone** | [0737-707904](tel:+46737707904) |
-| **LinkedIn** | [linkedin.com/in/majd-zeinah-8a6058a4](https://www.linkedin.com/in/majd-zeinah-8a6058a4/) |
+| **LinkedIn** | [linkedin.com/in/majd-zeinah-8a6058a4](https://www.linkedin.com/in/abbe-zineh-8a6058a4/) |
 
 ---
 
